@@ -49,16 +49,21 @@
     ///     `nil`, the sheet is dismissed.
     ///   - onDismiss: The closure to execute when dismissing the sheet.
     ///   - content: A closure returning the content of the sheet.
-    @MainActor
+//    @MainActor
     public func sheet<Value, Content>(
       unwrapping value: Binding<Value?>,
       onDismiss: (() -> Void)? = nil,
       @ViewBuilder content: @escaping (Binding<Value>) -> Content
     ) -> some View
     where Content: View {
-      self.sheet(isPresented: value.isPresent(), onDismiss: onDismiss) {
-        Binding(unwrapping: value).map(content)
-      }
+		self.sheet(
+			unwrapping: value.identified,
+			onDismiss: onDismiss,
+			content: content
+		)
+//      self.sheet(isPresented: value.isPresent(), onDismiss: onDismiss) {
+//        Binding(unwrapping: value).map(content)
+//      }
     }
   }
 #endif  // canImport(SwiftUI)
