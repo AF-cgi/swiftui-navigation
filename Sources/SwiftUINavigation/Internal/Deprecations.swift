@@ -417,7 +417,7 @@
       @ViewBuilder content: @escaping (Binding<Case>) -> Content
     ) -> some View
     where Content: View {
-      sheet(unwrapping: `enum`.case(casePath), onDismiss: onDismiss, content: content)
+		sheet(unwrapping: `enum`.identified.case(casePath), onDismiss: onDismiss, content: content)
     }
   }
 

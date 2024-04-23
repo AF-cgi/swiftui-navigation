@@ -66,4 +66,19 @@
 //      }
     }
   }
+
+
+extension View {
+  func sheet<Value, Content>(
+	unwrapping value: Binding<_Identified<Value>?>,
+	onDismiss: (() -> Void)? = nil,
+	@ViewBuilder content: @escaping (Binding<Value>) -> Content
+  ) -> some View
+  where Content: View {
+	self.sheet(item: value, onDismiss: onDismiss) { _ in
+	  Binding(unwrapping: value).map(\.rawValue).map(content)
+	}
+  }
+}
+
 #endif  // canImport(SwiftUI)
